@@ -36,9 +36,9 @@ public class Runner {
         .filter(p -> p.availableCount() > 0)
         .map(Runner::toMessage)
         .forEach(m -> messageSender.sendMessage(Optional.empty(), m));
-    parking.stream()
-        .map(Runner::toMessage)
-        .forEach(m -> messageSender.sendMessage(Optional.of("#all-parking"), m));
+    //parking.stream()
+    //    .map(Runner::toMessage)
+    //    .forEach(m -> messageSender.sendMessage(Optional.of("#all-parking"), m));
   }
 
   private static String toMessage(Parking parking) {
