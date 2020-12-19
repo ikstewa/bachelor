@@ -4,6 +4,7 @@ import com.google.common.base.Strings;
 import com.ikstewa.bachelor.model.Parking;
 import com.ikstewa.bachelor.slack.MessageSender;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 public class Runner {
@@ -19,9 +20,17 @@ public class Runner {
     final var messageSender = new MessageSender(webhookUrl);
     final var parkWhiz = new ParkWhizClient();
 
-    final var today = LocalDate.now(ParkWhizClient.ZONE_ID);
+    final var now = LocalDateTime.now(ParkWhizClient.ZONE_ID);
 
-    final var parking = parkWhiz.getParking(today, today.plusDays(7));
+    final LocalDate startDay;
+    // skip today if it's after 10 am
+    if (now.getHour() >= 10) {
+      startDay = now.toLocalDate().plusDays(1);
+    } else {
+      startDay = now.toLocalDate();
+    }
+
+    final var parking = parkWhiz.getParking(startDay, startDay.plusDays(7));
 
     parking.stream()
         .filter(p -> p.availableCount() > 0)
