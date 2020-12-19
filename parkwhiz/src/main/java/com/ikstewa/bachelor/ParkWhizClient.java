@@ -15,7 +15,7 @@ import okhttp3.Response;
 public class ParkWhizClient {
 
   private static final String BACHELOR_VENUE = "478498";
-  private static final ZoneId ZONE_ID = ZoneId.of("America/Los_Angeles");
+  static final ZoneId ZONE_ID = ZoneId.of("America/Los_Angeles");
   private static final DateTimeFormatter FORMAT = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 
   private final OkHttpClient client;

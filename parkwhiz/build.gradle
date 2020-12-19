@@ -6,9 +6,15 @@
  * User Manual available at https://docs.gradle.org/6.7.1/userguide/building_java_projects.html
  */
 plugins {
-    // Apply the java-library plugin for API and implementation separation.
-    id 'java-library'
+    id "java"
+    id "application"
     id "com.diffplug.spotless" version "5.8.2"
+}
+
+mainClassName = "com.ikstewa.bachelor.Runner"
+
+run {
+    systemProperty "slack_webhook", findProperty('slack_webhook')
 }
 
 repositories {
@@ -23,14 +29,14 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 
     // This dependency is exported to consumers, that is to say found on their compile classpath.
-    api 'org.apache.commons:commons-math3:3.6.1'
-    api "com.google.auto.value:auto-value-annotations:1.7.4"
+    compileOnly "com.google.auto.value:auto-value-annotations:1.7.4"
 
+    implementation 'com.google.code.gson:gson:2.8.6'
     implementation "com.fasterxml.jackson.core:jackson-databind:2.12.0"
     implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.12.0"
     implementation "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.12.0"
     implementation 'com.google.guava:guava:29.0-jre'
-    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation "com.squareup.okhttp3:okhttp:4.9.0"
 
     annotationProcessor "com.google.auto.value:auto-value:1.7.4"
 }
