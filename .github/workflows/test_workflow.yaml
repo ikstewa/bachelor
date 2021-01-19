@@ -1,0 +1,14 @@
+name: Deploy Hotfix
+
+on:
+  pull_request:
+    types: [opened]
+  issue_comment:
+    types: [created]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    environment: test_environment
+    steps:
+      - run: 'echo SUCCESS'
